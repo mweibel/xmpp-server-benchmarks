@@ -4,5 +4,5 @@
 - name: add erlang solutions apt key
   apt_key: id=A14F4FCA url=http://packages.erlang-solutions.com/debian/erlang_solutions.asc state=present
 
-- name: update apt cache
-  apt: update_cache=yes
+# - name: update apt cache
+#   apt: update_cache=yes

@@ -1,2 +1,11 @@
 - name: install MongooseIM
   apt: pkg=mongooseim={{mongooseim_version}} state=present
+
+- name: copy app.config to the proper location
+  template: src=app.config.j2 dest=/usr/lib/mongooseim/etc/app.config
+
+- name: copy ejabberd.cfg to the proper location
+  template: src=ejabberd.cfg.j2 dest=/usr/lib/mongooseim/etc/ejabberd.cfg
+
+- name: copy vm.args to the proper location
+  template: src=vm.args.j2 dest=/usr/lib/mongooseim/etc/vm.args

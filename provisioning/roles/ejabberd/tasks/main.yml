@@ -24,3 +24,9 @@
 
 - name: copy ejabberd.init to the proper location
   command: cp /tmp/ejabberd-{{ejabberd_version}}/ejabberd.init /etc/init.d/ejabberd
+
+- name: copy ejabberd.yml to the proper location
+  template: src=ejabberd.yml.j2 dest=/etc/ejabberd/ejabberd.yml
+
+- name: copy ejabberdctl.cfg to the proper location
+  template: src=ejabberdctl.cfg.j2 dest=/etc/ejabberd/ejabberdctl.cfg
