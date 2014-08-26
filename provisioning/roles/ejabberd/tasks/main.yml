@@ -21,3 +21,6 @@
 # before guide.html installation (which is /share/doc/ejabberd/dev.html)
 - name: check if install completed successfully
   command: test -f /share/doc/ejabberd/dev.html
+
+- name: copy ejabberd.init to the proper location
+  command: cp /tmp/ejabberd-{{ejabberd_version}}/ejabberd.init /etc/init.d/ejabberd
