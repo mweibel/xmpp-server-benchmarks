@@ -24,14 +24,14 @@ xmpp-server-benchmark/provisioning$ vagrant up
 
 ## ToDo
 
-[x] Basic ansible & vagrant setup
-[ ] Automated ejabberd setup incl. config
-[ ] Automated MongooseIM setup incl. config
-[ ] Basic tsung scenario for testing
-[ ] Automated collection of tsung results and storing them in the repo (most likely)
-[ ] EC2 setup
-[ ] Automated Prosody setup incl. config
-[ ] Automated Tigase setup incl. config
+- [x] Basic ansible & vagrant setup
+- [ ] Automated ejabberd setup incl. config
+- [ ] Automated MongooseIM setup incl. config
+- [ ] Basic tsung scenario for testing
+- [ ] Automated collection of tsung results and storing them in the repo (most likely)
+- [ ] EC2 setup
+- [ ] Automated Prosody setup incl. config
+- [ ] Automated Tigase setup incl. config
 
 ## How I imagine the testing should work
 
