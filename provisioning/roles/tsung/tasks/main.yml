@@ -1,0 +1,24 @@
+- name: check if tsung install is needed
+  shell: test "$(/usr/bin/tsung -v)" = "Tsung version {{tsung_version}}"
+  register: tsung_installed
+  ignore_errors: true
+
+- name: download tsung source
+  get_url: url=https://github.com/processone/tsung/archive/v{{tsung_version}}.tar.gz dest=/tmp/tsung-v{{tsung_version}}.tar.gz
+  when: tsung_installed|failed
+
+- name: unarchive tsung source
+  unarchive: src=/tmp/tsung-v{{tsung_version}}.tar.gz dest=/tmp copy=no
+  when: tsung_installed|failed
+
+- name: configure tsung
+  command: ./configure chdir=/tmp/tsung-{{tsung_version}}
+  when: tsung_installed|failed
+
+- name: make tsung
+  command: make chdir=/tmp/tsung-{{tsung_version}}
+  when: tsung_installed|failed
+
+- name: make install tsung
+  command: make install chdir=/tmp/tsung-{{tsung_version}}
+  when: tsung_installed|failed

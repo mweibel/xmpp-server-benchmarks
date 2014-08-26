@@ -1,0 +1,23 @@
+- name: download ejabberd source
+  get_url: url=https://github.com/processone/ejabberd/archive/14.07.tar.gz dest=/tmp/ejabberd-{{ejabberd_version}}.tar.gz
+
+- name: unarchive ejabberd source
+  unarchive: src=/tmp/ejabberd-{{ejabberd_version}}.tar.gz dest=/tmp copy=no
+
+- name: execute autogen.sh
+  command: sh ./autogen.sh chdir=/tmp/ejabberd-{{ejabberd_version}}
+
+- name: configure ejabberd
+  command: ./configure --enable-nif chdir=/tmp/ejabberd-{{ejabberd_version}}
+
+- name: make ejabberd
+  command: make chdir=/tmp/ejabberd-{{ejabberd_version}}
+
+- name: make install ejabberd
+  command: make install chdir=/tmp/ejabberd-{{ejabberd_version}}
+  ignore_errors: true # install fails because guide.html isn't generated
+
+# because install fails, we just check if it completed based on the last step
+# before guide.html installation (which is /share/doc/ejabberd/dev.html)
+- name: check if install completed successfully
+  command: test -f /share/doc/ejabberd/dev.html

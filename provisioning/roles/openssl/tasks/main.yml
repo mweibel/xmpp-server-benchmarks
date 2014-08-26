@@ -1,0 +1,5 @@
+- name: install openssl
+  apt: pkg=openssl state=present
+
+- name: install libssl-dev
+  apt: pkg=libssl-dev state=present

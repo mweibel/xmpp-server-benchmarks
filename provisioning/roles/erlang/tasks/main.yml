@@ -1,0 +1,2 @@
+- name: install erlang 17.1
+  apt: pkg=erlang=1:17.1 state=present

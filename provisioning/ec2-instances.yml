@@ -1,0 +1,22 @@
+- hosts: localhost
+  connection: local
+  gather_facts: False
+  vars_files:
+    - group_vars/ec2
+  roles:
+    - ec2
+
+- hosts: ec2clienthosts
+  sudo: true
+  vars_files:
+    - group_vars/tsung
+  roles:
+    - tsung
+
+- hosts: ec2hosts
+  sudo: true
+  vars_files:
+    - group_vars/xmpp
+  roles:
+    - ejabberd
+    - mongooseim

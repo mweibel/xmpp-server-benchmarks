@@ -1,0 +1,2 @@
+- name: install make
+  apt: pkg=make state=present

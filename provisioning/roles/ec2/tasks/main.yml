@@ -1,0 +1,45 @@
+tasks:
+- name: Create the VPC
+  ec2_vpc: >
+    state=present
+    region={{ lookup('env', 'AWS_REGION') }}
+    cidr_block={{vpc_cidr_block}}
+    subnets={{vpc_subnets}}
+    resource_tags={"Environment": "xmpp-server-benchmark"}
+    wait=yes
+  register: ec2_vpc
+
+
+- name: Provision tsung client instance
+  ec2: >
+    keypair={{mykeypair}}
+    group={{security_group}}
+    instance_type={{instance_type}}
+    image={{image}}
+    wait=yes
+    count={{number}}
+    vpc_subnet_id={{item.id}}
+    state=present
+  register: ec2_client
+  with_items: ec2_vpc.subnets
+
+- name: Provision a set of server instances
+  ec2: >
+    keypair={{mykeypair}}
+    group={{security_group}}
+    instance_type={{instance_type}}
+    image={{image}}
+    wait=yes
+    count={{number}}
+    vpc_subnet_id={{item.id}}
+    state=present
+  register: ec2
+  with_items: ec2_vpc.subnets
+
+- name: Add all instance public IPs to host group
+  add_host: hostname={{ item.public_ip }} groupname=ec2clienthosts
+  with_items: ec2_client.instances
+
+- name: Add all instance public IPs to host group
+  add_host: hostname={{ item.public_ip }} groupname=ec2hosts
+  with_items: ec2.instances

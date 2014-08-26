@@ -1,0 +1,2 @@
+- name: install MongooseIM
+  apt: pkg=mongooseim={{mongooseim_version}} state=present

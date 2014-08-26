@@ -1,0 +1,2 @@
+- name: install libyaml
+  apt: pkg=libyaml-dev state=present

@@ -1,0 +1,10 @@
+dependencies:
+  - g++
+  - make
+  - libexpat
+  - libyaml
+  - openssl
+  - zlib
+  - erlang
+  - git
+  - autoconf
