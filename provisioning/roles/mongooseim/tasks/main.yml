@@ -9,3 +9,6 @@
 
 - name: copy vm.args to the proper location
   template: src=vm.args.j2 dest=/usr/lib/mongooseim/etc/vm.args
+
+- name: make sure MongooseIM is stopped
+  command: service mongooseim stop
