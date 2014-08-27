@@ -2,11 +2,8 @@
   command: lsb_release -cs
   register: lsb_release
 
-- name: add erlang solutions apt repository
-  apt_repository: repo='deb http://packages.erlang-solutions.com/debian {{lsb_release.stdout}} contrib' state=present
-
 - name: add erlang solutions apt key
   apt_key: id=A14F4FCA url=http://packages.erlang-solutions.com/debian/erlang_solutions.asc state=present
 
-- name: update apt cache
-  apt: update_cache=yes
+- name: add erlang solutions apt repository
+  apt_repository: repo='deb http://packages.erlang-solutions.com/debian {{lsb_release.stdout}} contrib' state=present update_cache=yes
