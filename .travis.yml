@@ -9,4 +9,4 @@ install:
 script:
   - echo localhost > inventory
   - ansible-playbook -i inventory --syntax-check --list-tasks provisioning/vagrant.yml
-  - ansible-playbook -i inventory --connection=local --sudo -vvvv provisioning/vagrant.yml
+  - ansible-playbook -i inventory --connection=local --extra-vars "mongooseim_version=1.4.0-1" --sudo -vvvv provisioning/vagrant.yml
