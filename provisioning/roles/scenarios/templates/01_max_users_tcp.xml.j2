@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tsung SYSTEM "/usr/share/tsung/tsung-1.0.dtd" [] >
+<tsung loglevel="info">
+	<clients>
+		{% for host in groups['clients'] %}
+			<client host="{{hostvars[host]['ansible_eth0']['ipv4']['address']}}" use_controller_vm="true"/>
+		{% endfor %}
+	</clients>
+	<servers>
+		{% for host in groups['servers'] %}
+			<server host="{{hostvars[host]['ansible_eth0']['ipv4']['address']}}" port="5222" type="tcp" />
+		{% endfor %}
+	</servers>
+
+	<load>
+		<arrivalphase phase="1" duration="1" unit="minute">
+			<users interarrival="2" unit="second"></users>
+		</arrivalphase>
+	</load>
+
+	<options>
+		<option type="ts_jabber" name="global_number" value="100"></option>
+		<option type="ts_jabber" name="userid_max" value="100"></option>
+		<option type="ts_jabber" name="domain" value="localhost"></option>
+		<option type="ts_jabber" name="username" value="user"></option>
+		<option type="ts_jabber" name="passwd" value="pass"></option>
+	</options>
+
+	<sessions>
+		<session probability="100" name="01_max_users_tcp" type="ts_jabber">
+			<request>
+				<jabber type="connect" ack="no_ack"></jabber>
+			</request>
+			<thinktime value="2"></thinktime>
+
+			<transaction name="authenticate">
+				<request>
+					<jabber type="auth_get" ack="local"></jabber>
+				</request>
+				<request>
+					<jabber type="auth_set_plain" ack="local"></jabber>
+				</request>
+			</transaction>
+
+			<request>
+				<jabber type="presence:initial" ack="no_ack"/>
+			</request>
+			<thinktime value="2"></thinktime>
+		</session>
+	</sessions>
+</tsung>

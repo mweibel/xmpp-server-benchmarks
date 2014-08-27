@@ -6,14 +6,14 @@
   roles:
     - ec2
 
-- hosts: ec2clienthosts
+- hosts: clients
   sudo: true
   vars_files:
     - group_vars/tsung
   roles:
     - tsung
 
-- hosts: ec2hosts
+- hosts: servers
   sudo: true
   vars_files:
     - group_vars/xmpp

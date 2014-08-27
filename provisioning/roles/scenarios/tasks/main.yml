@@ -1,0 +1,5 @@
+- name: create scenario directory
+  command: mkdir -p ~/scenarios
+
+- name: copy 01_max_users_tcp.xml template
+  template: src=01_max_users_tcp.xml.j2 dest=~/scenarios/01_max_users_tcp.xml

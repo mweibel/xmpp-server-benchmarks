@@ -25,9 +25,10 @@ xmpp-server-benchmark/provisioning$ vagrant up
 ## ToDo
 
 - [x] Basic ansible & vagrant setup
-- [ ] Automated ejabberd setup incl. config
-- [ ] Automated MongooseIM setup incl. config
-- [ ] Basic tsung scenario for testing
+- [x] Automated ejabberd setup incl. config
+- [x] Automated MongooseIM setup incl. config
+- [x] Basic tsung scenario for testing
+- [ ] Automated start of configured servers based on what to test & test them
 - [ ] Automated collection of tsung results and storing them in the repo (most likely)
 - [ ] EC2 setup
 - [ ] Automated Prosody setup incl. config

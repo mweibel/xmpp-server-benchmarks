@@ -4,6 +4,7 @@
     - group_vars/tsung
   roles:
     - tsung
+    - scenarios
 
 - hosts: all
   sudo: true
