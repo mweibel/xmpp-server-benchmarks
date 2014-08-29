@@ -1,0 +1,6 @@
+- name: Remove results dir
+  command: rm -Rf /vagrant/results
+  ignore_errors: true
+
+- name: create results dir
+  command: mkdir /vagrant/results

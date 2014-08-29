@@ -13,3 +13,10 @@
   roles:
     - ejabberd
     - mongooseim
+
+- hosts: all
+  sudo: true
+  roles:
+    - prepare_results_dir
+    - start_ejabberd_test
+    - start_mongooseim_test

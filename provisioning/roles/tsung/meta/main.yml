@@ -1,3 +1,6 @@
 dependencies:
   - make
   - erlang
+  - gnuplot
+  - perl_template
+  - pylab

@@ -1,0 +1,5 @@
+- name: start ejabberd test
+  command: tsung -f ~/scenarios/01_max_users_tcp.xml -l /vagrant/results start
+
+- name: stop ejabberd
+  command: /etc/init.d/ejabberd stop
