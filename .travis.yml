@@ -7,6 +7,5 @@ install:
   - pip install ansible
   - ansible --version
 script:
-  - echo localhost > inventory
-  - ansible-playbook -i inventory --syntax-check --list-tasks provisioning/vagrant.yml
-  - ansible-playbook -i inventory --connection=local --extra-vars "mongooseim_version=1.4.0-1" --sudo -vvvv provisioning/travis.yml
+  - ansible-playbook -i provisioning/travis_inventory --syntax-check --list-tasks provisioning/vagrant.yml
+  - ansible-playbook -i provisioning/travis_inventory --connection=local --extra-vars "mongooseim_version=1.4.0-1" --sudo -vvvv provisioning/travis.yml

@@ -1,0 +1,5 @@
+[servers]
+localhost
+
+[clients]
+localhost
