@@ -1,5 +1,5 @@
 [servers]
-localhost
+localhost ansible_eth0=127.0.0.1
 
 [clients]
-localhost
+localhost ansible_eth0=127.0.0.1
