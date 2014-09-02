@@ -1,0 +1,4 @@
+#!/bin/bash
+
+{% set space = joiner(' ') %}
+tsplot {% for param in tsung_logs.results %}{{ space() }}{{param.stdout}}{% endfor %} -d /vagrant/results/out

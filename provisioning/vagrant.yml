@@ -20,3 +20,4 @@
     - prepare_results_dir
     - start_ejabberd_test
     - start_mongooseim_test
+    - run_tsplot
