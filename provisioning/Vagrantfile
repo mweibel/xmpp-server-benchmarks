@@ -62,5 +62,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       "servers" => ["default"],
       "clients" => ["default"]
     }
+    ansible.extra_vars = {
+      "results_dir" => "/vagrant/results"
+    }
   end
 end

@@ -1,5 +1,5 @@
 - name: Remove results dir
-  file: path=/vagrant/results state=absent
+  file: path={{results_dir}} state=absent
 
 - name: create results dir
-  file: path=/vagrant/results state=directory
+  file: path={{results_dir}} state=directory

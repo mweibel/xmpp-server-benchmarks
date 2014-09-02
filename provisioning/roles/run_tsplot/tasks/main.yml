@@ -1,14 +1,14 @@
 - name: find tsung results
-  shell: "ls /vagrant/results/ | sed 's~.*/~~g'"
+  shell: "ls {{results_dir}} | sed 's~.*/~~g'"
   register: tsung_results
 
 - name: find first dir in tsung_results
-  shell: "ls /vagrant/results/{{item}} | sed 's~.*/~~g'"
+  shell: "ls {{results_dir}}/{{item}} | sed 's~.*/~~g'"
   with_items: tsung_results.stdout.splitlines()
   register: tsung_log_directory_result
 
 - name: echo the log file invocation
-  shell: "echo \\'{{item.item}}\\' /vagrant/results/{{item.item}}/{{item.stdout}}/tsung.log"
+  shell: "echo \\'{{item.item}}\\' {{results_dir}}/{{item.item}}/{{item.stdout}}/tsung.log"
   with_items: tsung_log_directory_result.results
   register: tsung_logs
 

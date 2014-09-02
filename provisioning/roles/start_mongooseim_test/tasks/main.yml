@@ -1,8 +1,8 @@
 - name: ensure mongooseim directory exists
-  file: path=/vagrant/results/mongooseim state=directory
+  file: path={{results_dir}}/mongooseim state=directory
 
 - name: start mongooseim test
-  command: tsung -f ~/scenarios/01_max_users_tcp.xml -l /vagrant/results/mongooseim start
+  command: tsung -f ~/scenarios/01_max_users_tcp.xml -l {{results_dir}}/mongooseim start
 
 - name: stop mongooseim
   command: service mongooseim stop
