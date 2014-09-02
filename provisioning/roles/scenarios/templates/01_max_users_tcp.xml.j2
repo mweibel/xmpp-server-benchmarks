@@ -13,9 +13,13 @@
 		{% endif %}
 	</clients>
 	<servers>
-		{% for host in groups['servers'] %}
-			<server host="{{hostvars[host]['ansible_eth0']['ipv4']['address']}}" port="5222" type="tcp" />
-		{% endfor %}
+		{% if groups['servers']|length > 1 %}
+			{% for host in groups['servers'] %}
+				<server host="{{hostvars[host]['ansible_eth0']['ipv4']['address']}}" port="5222" type="tcp" />
+			{% endfor %}
+		{% else %}
+			<server host="{{hostvars[groups['servers'][0]]['ansible_hostname']}}" port="5222" type="tcp" />
+		{% endif %}
 	</servers>
 
 	<load>
