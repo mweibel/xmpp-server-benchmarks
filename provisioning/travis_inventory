@@ -1,5 +1,5 @@
 [servers]
-localhost ansible_eth0={"ipv4" => {"address" => "127.0.0.1"}}
+localhost ansible_eth0.ipv4.address=127.0.0.1
 
 [clients]
-localhost ansible_eth0={"ipv4" => {"address" => "127.0.0.1"}}
+localhost ansible_eth0.ipv4.address=127.0.0.1
