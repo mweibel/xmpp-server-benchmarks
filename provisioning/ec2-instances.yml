@@ -6,17 +6,4 @@
   roles:
     - ec2
 
-- hosts: clients
-  sudo: true
-  vars_files:
-    - group_vars/tsung
-  roles:
-    - tsung
-
-- hosts: servers
-  sudo: true
-  vars_files:
-    - group_vars/xmpp
-  roles:
-    - ejabberd
-    - mongooseim
+- include: setup.yml

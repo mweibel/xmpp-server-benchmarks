@@ -1,15 +1,1 @@
-- hosts: all
-  sudo: true
-  vars_files:
-    - group_vars/tsung
-  roles:
-    - tsung
-    - scenarios
-
-- hosts: all
-  sudo: true
-  vars_files:
-    - group_vars/xmpp
-  roles:
-    - ejabberd
-    - mongooseim
+- include: setup.yml
