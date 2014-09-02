@@ -1,4 +1,4 @@
-- hosts: all
+- hosts: clients
   sudo: true
   vars_files:
     - group_vars/tsung
@@ -6,7 +6,7 @@
     - tsung
     - scenarios
 
-- hosts: all
+- hosts: servers
   sudo: true
   vars_files:
     - group_vars/xmpp
