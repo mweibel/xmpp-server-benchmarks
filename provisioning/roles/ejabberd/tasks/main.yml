@@ -1,32 +1,47 @@
+- name: check if ejabberd install is needed
+  shell: test -f /etc/init.d/ejabberd
+  register: ejabberd_installed
+  ignore_errors: true
+
 - name: download ejabberd source
   get_url: url=https://github.com/processone/ejabberd/archive/14.07.tar.gz dest=/tmp/ejabberd-{{ejabberd_version}}.tar.gz
+  when: ejabberd_installed|failed
 
 - name: unarchive ejabberd source
   unarchive: src=/tmp/ejabberd-{{ejabberd_version}}.tar.gz dest=/tmp copy=no
+  when: ejabberd_installed|failed
 
 - name: execute autogen.sh
   command: sh ./autogen.sh chdir=/tmp/ejabberd-{{ejabberd_version}}
+  when: ejabberd_installed|failed
 
 - name: configure ejabberd
   command: ./configure --enable-nif chdir=/tmp/ejabberd-{{ejabberd_version}}
+  when: ejabberd_installed|failed
 
 - name: make ejabberd
   command: make chdir=/tmp/ejabberd-{{ejabberd_version}}
+  when: ejabberd_installed|failed
 
 - name: make install ejabberd
   command: make install chdir=/tmp/ejabberd-{{ejabberd_version}}
   ignore_errors: true # install fails because guide.html isn't generated
+  when: ejabberd_installed|failed
 
 # because install fails, we just check if it completed based on the last step
 # before guide.html installation (which is /share/doc/ejabberd/dev.html)
 - name: check if install completed successfully
   command: test -f /share/doc/ejabberd/dev.html
+  when: ejabberd_installed|failed
 
 - name: copy ejabberd.init to the proper location
   command: cp /tmp/ejabberd-{{ejabberd_version}}/ejabberd.init /etc/init.d/ejabberd
+  when: ejabberd_installed|failed
 
 - name: copy ejabberd.yml to the proper location
   template: src=ejabberd.yml.j2 dest=/etc/ejabberd/ejabberd.yml
+  when: ejabberd_installed|failed
 
 - name: copy ejabberdctl.cfg to the proper location
   template: src=ejabberdctl.cfg.j2 dest=/etc/ejabberd/ejabberdctl.cfg
+  when: ejabberd_installed|failed
