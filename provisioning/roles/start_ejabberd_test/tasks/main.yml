@@ -1,8 +1,0 @@
-- name: ensure ejabberd directory exists
-  file: path={{results_dir}}/ejabberd state=directory
-
-- name: start ejabberd test
-  command: tsung -f ~/scenarios/01_max_users_tcp.xml -l {{results_dir}}/ejabberd start
-
-- name: stop ejabberd
-  command: /etc/init.d/ejabberd stop

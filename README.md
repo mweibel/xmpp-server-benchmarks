@@ -22,14 +22,29 @@ xmpp-server-benchmark$ cd provisioning
 xmpp-server-benchmark/provisioning$ vagrant up
 ```
 
+## Contributing scenarios
+In order to contribute a scenario you need to make three changes:
+
+1. Add your scenario template as a [jinja2 template](http://jinja.pocoo.org/docs/dev/templates/) to the directory `provisioning/roles/scenarios/templates/`
+2. Let the `scenarios` role copy your template on provisioning by adding an entry to `provisioning/roles/scenarios/tasks/main.yml`
+3. Add your scenario to the `enabled_scenarios` list in `provisioning/group_vars/all`
+
+## Contributing servers to test
+Please have a look at an existing server setup in order to see how to do it.
+
+1. Take a look into the `ejabberd` role (`provisioning/roles/ejabberd`)
+2. Add your own role (or roles) (possibly by reusing one from [ansible galaxy](https://galaxy.ansible.com))
+3. Add the new role to `provisioning/setup.yml`
+4. Configure the server as enabled in `provisioning/group_vars/all` similar to existing entries
+
 ## ToDo
 
 - [x] Basic ansible & vagrant setup
 - [x] Automated ejabberd setup incl. config
 - [x] Automated MongooseIM setup incl. config
 - [x] Basic tsung scenario for testing
-- [ ] Automated start of configured servers based on what to test & test them
-- [ ] Automated collection of tsung results and storing them in the repo (most likely)
+- [x] Automated start of configured servers based on what to test & test them
+- [ ] Automated collection of tsung results back from the testing server
 - [ ] EC2 setup
 - [ ] Automated Prosody setup incl. config
 - [ ] Automated Tigase setup incl. config

@@ -1,4 +1,6 @@
 #!/bin/bash
 
-{% set space = joiner(' ') %}
-tsplot {% for param in tsung_logs.results %}{{ space() }}{{param.stdout}}{% endfor %} -d /vagrant/results/out
+{% for scenario in enabled_scenarios -%}
+  {% set space = joiner(' ') %}
+  tsplot {% for server in enabled_servers %}{{ space() }}"{{server.name}}" {{results_dir}}/{{server.name}}/{{scenario}}/`ls {{results_dir}}/{{server.name}}/{{scenario}}/|sort -n|head -1`/tsung.log{% endfor %} -d {{results_dir}}/out/{{scenario}}
+{% endfor %}

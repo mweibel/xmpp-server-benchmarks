@@ -1,1 +1,8 @@
 results_dir: ~/results
+
+enabled_scenarios:
+  - max_users_tcp
+
+enabled_servers:
+  - {name: 'ejabberd', 'start': '/etc/init.d/ejabberd start', 'stop': '/etc/init.d/ejabberd stop'}
+  - {name: 'mongooseim', 'start': 'service mongooseim start', 'stop': 'service mongooseim stop'}

@@ -1,18 +1,4 @@
-- name: find tsung results
-  shell: "ls {{results_dir}} | sed 's~.*/~~g'"
-  register: tsung_results
-
-- name: find first dir in tsung_results
-  shell: "ls {{results_dir}}/{{item}} | sed 's~.*/~~g'"
-  with_items: tsung_results.stdout.splitlines()
-  register: tsung_log_directory_result
-
-- name: echo the log file invocation
-  shell: "echo \\'{{item.item}}\\' {{results_dir}}/{{item.item}}/{{item.stdout}}/tsung.log"
-  with_items: tsung_log_directory_result.results
-  register: tsung_logs
-
-- name: fill template with data
+- name: generate run_tsplot script
   template: src=run_tsplot.sh.j2 dest=~/run_tsplot.sh mode=0744
 
 - name: run tsplot

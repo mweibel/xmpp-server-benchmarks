@@ -1,0 +1,13 @@
+#!/bin/bash
+
+{% for server in enabled_servers -%}
+	echo "Starting {{server.name}} tests"
+	{{server.start}}
+	{% for scenario in enabled_scenarios -%}
+		echo "Starting {{server.name}} - {{scenario}} tests"
+		tsung -f ~/scenarios/{{scenario}}.xml -l {{results_dir}}/{{server.name}}/{{scenario}} start
+		echo "Finished {{server.name}} - {{scenario}} tests"
+	{% endfor %}
+	{{server.stop}}
+	echo "Stopped {{server.name}} tests"
+{% endfor %}

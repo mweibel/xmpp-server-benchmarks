@@ -1,3 +1,0 @@
-- name: start mongooseim
-  command: service mongooseim start
-  ignore_errors: true

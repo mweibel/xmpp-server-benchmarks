@@ -1,3 +1,0 @@
-- name: start ejabberd
-  command: /etc/init.d/ejabberd start
-  ignore_errors: true

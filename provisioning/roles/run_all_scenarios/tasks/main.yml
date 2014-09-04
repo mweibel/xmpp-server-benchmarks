@@ -1,0 +1,11 @@
+- name: create run script
+  template: src=run_all_scenarios.sh.j2 dest=~/run_all_scenarios.sh mode=744
+
+- name: ensure results dirs are created
+  file: path={{results_dir}}/{{item[0].name}}/{{item[1]}} state=directory
+  with_nested:
+    - enabled_servers
+    - enabled_scenarios
+
+- name: run the script
+  command: ~/run_all_scenarios.sh
