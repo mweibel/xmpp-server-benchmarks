@@ -1,4 +1,5 @@
 results_dir: ~/results
+result_dest_dir: /tmp
 
 enabled_scenarios:
   - max_users_tcp

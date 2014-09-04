@@ -6,3 +6,4 @@
     - prepare_results_dir
     - run_all_scenarios
     - run_tsplot
+    - fetch_results
