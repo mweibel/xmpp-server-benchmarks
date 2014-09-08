@@ -5,6 +5,7 @@
   roles:
     - tsung
     - scenarios
+    - add_authorized_key
 
 - hosts: servers
   sudo: true

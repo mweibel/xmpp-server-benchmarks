@@ -1,0 +1,15 @@
+- name: remove possible old keys
+  command: rm ~/.ssh/id_rsa_ansible ~/.ssh/id_rsa_ansible.pub
+  ignore_errors: true
+
+- name: generate authorized key
+  command: "ssh-keygen -N \"\"  -t rsa -f ~/.ssh/id_rsa_ansible"
+
+- name: copy public key
+  command: cat ~/.ssh/id_rsa.pub
+  register: ssh_public_key
+
+- name: add authorized key
+  authorized_key: user=root key="{{ssh_public_key.stdout}}"
+  delegate_to: "{{item}}"
+  with_items: groups['servers']
