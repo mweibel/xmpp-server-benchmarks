@@ -6,7 +6,7 @@
   command: "ssh-keygen -N \"\"  -t rsa -f ~/.ssh/id_rsa_ansible"
 
 - name: copy public key
-  command: cat ~/.ssh/id_rsa.pub
+  command: cat ~/.ssh/id_rsa_ansible.pub
   register: ssh_public_key
 
 - name: add authorized key
