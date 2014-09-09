@@ -22,6 +22,12 @@ xmpp-server-benchmark$ cd provisioning
 xmpp-server-benchmark/provisioning$ vagrant up
 ```
 
+Repeated provisions you can run using:
+
+```
+xmpp-server-benchmark/provisioning$ vagrant provision
+```
+
 ## Contributing scenarios
 In order to contribute a scenario you need to make three changes:
 
@@ -44,7 +50,7 @@ Please have a look at an existing server setup in order to see how to do it.
 - [x] Automated MongooseIM setup incl. config
 - [x] Basic tsung scenario for testing
 - [x] Automated start of configured servers based on what to test & test them
-- [ ] Automated collection of tsung results back from the testing server
+- [x] Automated collection of tsung results back from the testing server
 - [ ] EC2 setup
 - [ ] Automated Prosody setup incl. config
 - [ ] Automated Tigase setup incl. config
