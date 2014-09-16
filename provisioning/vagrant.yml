@@ -1,13 +1,2 @@
 - include: setup.yml
-
-- hosts: clients
-  sudo: true
-  roles:
-    - prepare_results_dir
-    - run_all_scenarios
-
-- hosts: clients
-  sudo: true
-  roles:
-    - run_tsplot
-    - fetch_results
+- include: run_tests.yml

@@ -1,37 +1,45 @@
-tasks:
 - name: Create the VPC
   ec2_vpc: >
     state=present
-    region={{ lookup('env', 'AWS_REGION') }}
     cidr_block={{vpc_cidr_block}}
     subnets={{vpc_subnets}}
     resource_tags={"Environment": "xmpp-server-benchmark"}
     wait=yes
   register: ec2_vpc
 
+- name: Open up SSH for us using a security group
+  ec2_group: >
+    name=ansible_xmpp_server_benchmark_group
+    description=Allows SSH connections
+    vpc_id={{ec2_vpc.id}}
+    rules=
+      - proto: tcp
+        from_port: 22
+        to_port: 22
+        cidr_ip: 0.0.0.0/0
 
 - name: Provision tsung client instance
   ec2: >
-    keypair={{mykeypair}}
-    group={{security_group}}
     instance_type={{instance_type}}
     image={{image}}
     wait=yes
-    count={{number}}
+    group=ansible_xmpp_server_benchmark_group
+    count={{client_count}}
     vpc_subnet_id={{item.id}}
+    instance_tags={"Name": "Tsung Clients"}
     state=present
   register: ec2_client
   with_items: ec2_vpc.subnets
 
 - name: Provision a set of server instances
   ec2: >
-    keypair={{mykeypair}}
-    group={{security_group}}
+    group=ansible_xmpp_server_benchmark_group
     instance_type={{instance_type}}
     image={{image}}
     wait=yes
-    count={{number}}
+    count={{server_count}}
     vpc_subnet_id={{item.id}}
+    instance_tags={"Name": "XMPP Servers"}
     state=present
   register: ec2
   with_items: ec2_vpc.subnets

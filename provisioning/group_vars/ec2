@@ -1,0 +1,12 @@
+image: ami-3907d64e
+
+vpc_cidr_block: 10.0.0.0/16
+
+vpc_subnets:
+  - cidr: 10.0.1.0/24
+    az: eu-west-1a
+
+instance_type: t1.micro
+
+client_count: 1
+server_count: 1
