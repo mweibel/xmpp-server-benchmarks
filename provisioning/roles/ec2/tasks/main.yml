@@ -1,53 +1,86 @@
-- name: Create the VPC
-  ec2_vpc: >
-    state=present
-    cidr_block={{vpc_cidr_block}}
-    subnets={{vpc_subnets}}
-    resource_tags={"Environment": "xmpp-server-benchmark"}
-    wait=yes
-  register: ec2_vpc
+- name: generate authorized key
+  command: "ssh-keygen -N \"\" -t rsa -f ~/.ssh/id_ansible_xmpp_server_benchmark"
+  ignore_errors: true
+
+- name: retrieve public key
+  command: "ssh-keygen -y -f ~/.ssh/id_ansible_xmpp_server_benchmark"
+  register: public_key
+
+- name: generate SSH key pair
+  local_action:
+    module: ec2_key
+    name: id_ansible_xmpp_server_benchmark
+    key_material: "{{public_key.stdout}}"
+    state: present
+  register: ec2_key_pair
 
 - name: Open up SSH for us using a security group
-  ec2_group: >
-    name=ansible_xmpp_server_benchmark_group
-    description=Allows SSH connections
-    vpc_id={{ec2_vpc.id}}
-    rules=
+  local_action:
+    module: ec2_group
+    name: ansible_xmpp_server_benchmark_group
+    description: Allows SSH connections
+    state: present
+    rules:
       - proto: tcp
         from_port: 22
         to_port: 22
         cidr_ip: 0.0.0.0/0
 
 - name: Provision tsung client instance
-  ec2: >
-    instance_type={{instance_type}}
-    image={{image}}
-    wait=yes
-    group=ansible_xmpp_server_benchmark_group
-    count={{client_count}}
-    vpc_subnet_id={{item.id}}
-    instance_tags={"Name": "Tsung Clients"}
-    state=present
+  local_action:
+    module: ec2
+    instance_type: "{{instance_type}}"
+    image: "{{image}}"
+    wait: yes
+    group: ansible_xmpp_server_benchmark_group
+    key_name: id_ansible_xmpp_server_benchmark
+    count_tag:
+      Name: "Tsung Clients"
+    exact_count: "{{client_count}}"
+    instance_tags: {"Name": "Tsung Clients"}
   register: ec2_client
-  with_items: ec2_vpc.subnets
 
 - name: Provision a set of server instances
-  ec2: >
-    group=ansible_xmpp_server_benchmark_group
-    instance_type={{instance_type}}
-    image={{image}}
-    wait=yes
-    count={{server_count}}
-    vpc_subnet_id={{item.id}}
-    instance_tags={"Name": "XMPP Servers"}
-    state=present
+  local_action:
+    module: ec2
+    group: ansible_xmpp_server_benchmark_group
+    instance_type: "{{instance_type}}"
+    image: "{{image}}"
+    wait: yes
+    key_name: id_ansible_xmpp_server_benchmark
+    count_tag:
+      Name: "XMPP Servers"
+    exact_count: "{{server_count}}"
+    instance_tags: {"Name": "XMPP Servers"}
   register: ec2
-  with_items: ec2_vpc.subnets
 
-- name: Add all instance public IPs to host group
-  add_host: hostname={{ item.public_ip }} groupname=clients
-  with_items: ec2_client.instances
 
-- name: Add all instance public IPs to host group
-  add_host: hostname={{ item.public_ip }} groupname=servers
-  with_items: ec2.instances
+- name: Add all client public IPs to host group
+  add_host: >
+    hostname={{ item.public_ip }}
+    groupname=clients
+    ansible_ssh_private_key_file=~/.ssh/id_ansible_xmpp_server_benchmark
+    ansible_ssh_user=ubuntu
+  with_items: ec2_client.tagged_instances
+
+- name: wait for tagged_instances to listen on port:22
+  wait_for:
+    state=started
+    host={{ item.public_ip }}
+    port=22
+  with_items: ec2_client.tagged_instances
+
+- name: Add all server public IPs to host group
+  add_host: >
+    hostname={{ item.public_ip }}
+    groupname=servers
+    ansible_ssh_private_key_file=~/.ssh/id_ansible_xmpp_server_benchmark
+    ansible_ssh_user=ubuntu
+  with_items: ec2.tagged_instances
+
+- name: wait for tagged_instances to listen on port:22
+  wait_for:
+    state=started
+    host={{ item.public_ip }}
+    port=22
+  with_items: ec2.tagged_instances

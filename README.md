@@ -28,6 +28,21 @@ Repeated provisions you can run using:
 xmpp-server-benchmark/provisioning$ vagrant provision
 ```
 
+## Running on ec2
+
+Make sure you have `boto` (`python-boto`) installed before you proceed.
+
+You can either [create a file `~/.boto`](http://docs.pythonboto.org/en/latest/getting_started.html#configuring-boto-credentials)
+for your AWS access/secret keys or specify it on the commandline using `AWS_ACCESS_KEY` and `AWS_SECRET_KEY`.
+
+After that, you should be able to run the benchmarks using:
+
+```
+$> AWS_REGION=eu-west-1 ansible-playbook -i provisioning/ec2 provisioning/ec2.yml
+```
+
+Replace the region with your preferred AWS region.
+
 ## Contributing scenarios
 In order to contribute a scenario you need to make three changes:
 
