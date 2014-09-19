@@ -25,6 +25,10 @@
         from_port: 22
         to_port: 22
         cidr_ip: 0.0.0.0/0
+    # allow all outbound connections
+    rules_egress:
+      - proto: all
+        cidr_ip: 0.0.0.0/0
 
 - name: Provision tsung client instance
   local_action:
