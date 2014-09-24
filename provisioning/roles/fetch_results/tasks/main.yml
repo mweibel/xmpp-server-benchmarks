@@ -1,5 +1,5 @@
 - name: archive out directory
-  command: tar -cvzf {{results_dir}}/results.tar.gz {{results_dir}}
+  command: tar -cvzf {{results_dest_dir}}/results.tar.gz {{results_dir}}
 
 - name: copy file to local
-  fetch: src={{results_dir}}/results.tar.gz dest={{results_dest_dir}}
+  fetch: src={{results_dest_dir}}/results.tar.gz dest={{results_dest_dir}}

@@ -1,3 +1,14 @@
+# servers before clients
+# little trick in order to have all the infos necessary in the hostvars
+# before running the scenarios role.
+- hosts: servers
+  sudo: true
+  vars_files:
+    - group_vars/xmpp
+  roles:
+    - ejabberd
+    - mongooseim
+
 - hosts: clients
   sudo: true
   vars_files:
@@ -6,11 +17,3 @@
     - tsung
     - scenarios
     - add_authorized_key
-
-- hosts: servers
-  sudo: true
-  vars_files:
-    - group_vars/xmpp
-  roles:
-    - ejabberd
-    - mongooseim

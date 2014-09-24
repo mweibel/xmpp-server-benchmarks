@@ -1,19 +1,19 @@
 #!/bin/bash
 
 {% for server in enabled_servers -%}
-	echo "Starting {{server.name}} tests"
-	{% for host in groups['servers'] -%}
-		ssh root@{{hostvars[host]['ansible_eth0']['ipv4']['address']}} {{server.start}}
-	{% endfor %}
+  echo "Starting {{server.name}} tests"
+  {% for host in groups['servers'] -%}
+    ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no root@{{hostvars[host]['ansible_eth0']['ipv4']['address']}} -i ~/.ssh/id_rsa_ansible {{server.start}}
+  {% endfor %}
 
-	{% for scenario in enabled_scenarios -%}
-		echo "Starting {{server.name}} - {{scenario}} tests"
-		tsung -f ~/scenarios/{{scenario}}.xml -l {{results_dir}}/{{server.name}}/{{scenario}} start
-		echo "Finished {{server.name}} - {{scenario}} tests"
-	{% endfor %}
+  {% for scenario in enabled_scenarios -%}
+    echo "Starting {{server.name}} - {{scenario}} tests"
+    tsung -F -f ~/scenarios/{{scenario}}.xml -l {{results_dir}}/{{server.name}}/{{scenario}} start
+    echo "Finished {{server.name}} - {{scenario}} tests"
+  {% endfor %}
 
-	{% for host in groups['servers'] -%}
-		ssh root@{{hostvars[host]['ansible_eth0']['ipv4']['address']}} {{server.stop}}
-	{% endfor %}
-	echo "Stopped {{server.name}} tests"
+  {% for host in groups['servers'] -%}
+    ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no root@{{hostvars[host]['ansible_eth0']['ipv4']['address']}} -i ~/.ssh/id_rsa_ansible {{server.stop}}
+  {% endfor %}
+  echo "Stopped {{server.name}} tests"
 {% endfor %}

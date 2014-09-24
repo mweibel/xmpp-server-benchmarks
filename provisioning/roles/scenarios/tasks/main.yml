@@ -1,5 +1,11 @@
 - name: create scenario directory
   file: path=~/scenarios state=directory
 
+- name: debug servers
+  debug: var=hostvars[groups['servers'][0]]
+
+- name: debug clients
+  debug: var=hostvars[groups['clients'][0]]
+
 - name: copy max_users_tcp.xml template
   template: src=max_users_tcp.xml.j2 dest=~/scenarios/max_users_tcp.xml

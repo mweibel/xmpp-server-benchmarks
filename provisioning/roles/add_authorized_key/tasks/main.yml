@@ -3,13 +3,13 @@
   ignore_errors: true
 
 - name: generate authorized key
-  command: "ssh-keygen -N \"\"  -t rsa -f ~/.ssh/id_rsa_ansible"
+  command: "ssh-keygen -N \"\" -t rsa -f ~/.ssh/id_rsa_ansible"
 
 - name: copy public key
-  command: cat ~/.ssh/id_rsa_ansible.pub
+  command: "ssh-keygen -y -f ~/.ssh/id_rsa_ansible"
   register: ssh_public_key
 
 - name: add authorized key
-  authorized_key: user=root key="{{ssh_public_key.stdout}}"
-  delegate_to: "{{item}}"
+  shell: "echo '{{ssh_public_key.stdout}}' >> /root/.ssh/authorized_keys"
+  delegate_to: "{{hostvars[item]['ansible_ssh_user']}}@{{item}}"
   with_items: groups['servers']
