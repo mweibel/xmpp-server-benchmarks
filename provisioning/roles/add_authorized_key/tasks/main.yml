@@ -11,5 +11,6 @@
 
 - name: add authorized key
   shell: "echo '{{ssh_public_key.stdout}}' >> /root/.ssh/authorized_keys"
-  delegate_to: "{{hostvars[item]['ansible_ssh_user']}}@{{item}}"
+  #delegate_to: "{{hostvars[item]['ansible_ssh_user']}}@{{item}}"
+  delegate_to: "{{item}}"
   with_items: groups['servers']

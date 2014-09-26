@@ -12,6 +12,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Every Vagrant virtual environment requires a box to build off of.
   config.vm.box = "ubuntu/trusty64"
 
+  config.vm.hostname = "ansible-xmpp.local"
+
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine. In the example below,
   # accessing "localhost:8080" will access port 80 on the guest machine.
@@ -58,12 +60,14 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.provision "ansible" do |ansible|
     ansible.playbook = "vagrant.yml"
+    ansible.verbose = "vvvv"
     ansible.groups = {
       "servers" => ["default"],
       "clients" => ["default"]
     }
     ansible.extra_vars = {
-      "results_dir" => "/vagrant/results"
+      "results_dir" => "/vagrant/results",
+      "ansible_ssh_user" => "vagrant"
     }
   end
 end

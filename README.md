@@ -10,8 +10,7 @@ contribute.
 
 ## Testing the setup
 
-There's no way yet to run the benchmarks as thought on ec2 or wherever you'd like to.
-The only way to see whether it works or not is using [Vagrant](http://www.vagrantup.com)
+To see whether the playbook works is using [Vagrant](http://www.vagrantup.com)
 and testing the automated provisioner.
 
 To test using Vagrant, you need a working Virtualbox and Vagrant setup.
