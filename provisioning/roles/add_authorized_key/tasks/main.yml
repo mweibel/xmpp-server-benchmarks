@@ -9,8 +9,13 @@
   command: "ssh-keygen -y -f ~/.ssh/id_rsa_ansible"
   register: ssh_public_key
 
+- name: wtf is wrong
+  debug: var=hostvars
+
+- name: debug groups
+  debug: var=groups
+
 - name: add authorized key
   shell: "echo '{{ssh_public_key.stdout}}' >> /root/.ssh/authorized_keys"
-  #delegate_to: "{{hostvars[item]['ansible_ssh_user']}}@{{item}}"
   delegate_to: "{{item}}"
   with_items: groups['servers']
