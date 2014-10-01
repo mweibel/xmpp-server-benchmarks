@@ -8,4 +8,4 @@ install:
   - ansible --version
 script:
   - ansible-playbook -i provisioning/travis_inventory --syntax-check --list-tasks provisioning/vagrant.yml
-  - ansible-playbook -i provisioning/travis_inventory --connection=local --extra-vars "mongooseim_version=1.4.0-1" -vvvv provisioning/travis.yml
+  - ansible-playbook -i provisioning/travis_inventory --connection=local --extra-vars "mongooseim_version=1.4.0-1 erlang_version=1:17.1" -vvvv provisioning/travis.yml

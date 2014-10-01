@@ -1,6 +1,8 @@
 results_dir: ~/results
 results_dest_dir: /tmp
 
+erlang_version: 1:17.3
+
 enabled_scenarios:
   - max_users_tcp
 

@@ -1,2 +1,2 @@
 - name: install erlang 17.3
-  apt: pkg=erlang=1:17.3 state=present
+  apt: pkg=erlang={{erlang_version}} state=present update_cache=yes cache_valid_time=3600
