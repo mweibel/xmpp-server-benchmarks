@@ -42,6 +42,14 @@ $> AWS_REGION=eu-west-1 ansible-playbook -i provisioning/ec2 provisioning/ec2.ym
 
 Replace the region with your preferred AWS region.
 
+The default configuration will provision and run the tests on 1 tsung / 1 xmpp server.
+If you want to test with more, start the provisioning like this and replace the two counts
+with want you'd like to have:
+
+```
+$> AWS_REGION=eu-west-1 ansible-playbook -i provisioning/ec2 --extra-vars "client_count=1 server_count=3" provisioning/ec2.yml
+```
+
 ## Contributing scenarios
 In order to contribute a scenario you need to make three changes:
 
@@ -65,14 +73,7 @@ Please have a look at an existing server setup in order to see how to do it.
 - [x] Basic tsung scenario for testing
 - [x] Automated start of configured servers based on what to test & test them
 - [x] Automated collection of tsung results back from the testing server
-- [ ] EC2 setup
+- [x] EC2 setup
+- [ ] Validate results are correct
 - [ ] Automated Prosody setup incl. config
 - [ ] Automated Tigase setup incl. config
-
-## How I imagine the testing should work
-
-- 1-n nodes of tsung doing the load testing
-- 1-n nodes of the xmpp servers being tested
-
-On the xmpp server nodes each server software is installed and then started one by
-one after a tsung scenario has been completed.
