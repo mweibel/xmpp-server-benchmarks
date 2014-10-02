@@ -12,3 +12,6 @@
 
 - name: make sure MongooseIM is stopped
   command: service mongooseim stop
+
+- name: register 10000 users
+  shell: "service mongooseim start && for i in `seq 1 10000`; do echo $i && mongooseimctl register test$i localhost password$i; done && service mongooseim stop"

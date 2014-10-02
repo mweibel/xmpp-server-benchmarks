@@ -45,3 +45,7 @@
 - name: copy ejabberdctl.cfg to the proper location
   template: src=ejabberdctl.cfg.j2 dest=/etc/ejabberd/ejabberdctl.cfg
   when: ejabberd_installed|failed
+
+- name: register 10000 users
+  shell: "/etc/init.d/ejabberd start && for i in `seq 1 10000`; do echo $i && ejabberdctl register test$i localhost password$i; done && /etc/init.d/ejabberd stop"
+  when: ejabberd_installed|failed
