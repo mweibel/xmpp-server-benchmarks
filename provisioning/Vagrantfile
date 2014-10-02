@@ -67,7 +67,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     }
     ansible.extra_vars = {
       "results_dir" => "/vagrant/results",
-      "ansible_ssh_user" => "vagrant"
+      "ansible_ssh_user" => "vagrant",
+      "enabled_scenarios" => [
+        "dummy_test"
+      ]
     }
   end
 end

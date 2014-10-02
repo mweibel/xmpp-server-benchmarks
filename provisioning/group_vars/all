@@ -5,6 +5,7 @@ erlang_version: "1:17.3"
 
 enabled_scenarios:
   - dummy_test
+  - max_users_tcp
 
 enabled_servers:
   - {name: 'ejabberd', 'start': '/etc/init.d/ejabberd start', 'stop': '/etc/init.d/ejabberd stop'}
