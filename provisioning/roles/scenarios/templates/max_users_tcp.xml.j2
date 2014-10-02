@@ -51,9 +51,15 @@
       </transaction>
 
       <request>
-        <jabber type="presence:initial" ack="no_ack"/>
+        <jabber type="presence:initial" ack="global"/>
       </request>
-      <thinktime value="2"></thinktime>
+      <thinktime value="6000"></thinktime>
+
+      <transaction name="close">
+        <request>
+          <jabber type="close" ack="local"></jabber>
+        </request>
+      </transaction>
     </session>
   </sessions>
 </tsung>
