@@ -75,5 +75,6 @@ Please have a look at an existing server setup in order to see how to do it.
 - [x] Automated collection of tsung results back from the testing server
 - [x] EC2 setup
 - [ ] Validate results are correct
+- [ ] Automate publishing of reports on a GH-Page (maybe)
 - [ ] Automated Prosody setup incl. config
 - [ ] Automated Tigase setup incl. config
