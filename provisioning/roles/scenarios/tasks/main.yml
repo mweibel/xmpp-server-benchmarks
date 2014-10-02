@@ -1,5 +1,5 @@
 - name: create scenario directory
   file: path=~/scenarios state=directory
 
-- name: copy max_users_tcp.xml template
-  template: src=max_users_tcp.xml.j2 dest=~/scenarios/max_users_tcp.xml
+- name: copy dummy_test.xml template
+  template: src=dummy_test.xml.j2 dest=~/scenarios/dummy_test.xml

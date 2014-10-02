@@ -4,7 +4,7 @@ results_dest_dir: /tmp
 erlang_version: "1:17.3"
 
 enabled_scenarios:
-  - max_users_tcp
+  - dummy_test
 
 enabled_servers:
   - {name: 'ejabberd', 'start': '/etc/init.d/ejabberd start', 'stop': '/etc/init.d/ejabberd stop'}
