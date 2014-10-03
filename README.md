@@ -1,6 +1,6 @@
 # XMPP Server Benchmarks
 
-[![Build Status](https://travis-ci.org/mweibel/xmpp-server-benchmarks.png)](https://travis-ci.org/mweibel/xmpp-server-benchmarks)
+[![Build Status](https://travis-ci.org/mweibel/xmpp-server-benchmarks.png?branch=master)](https://travis-ci.org/mweibel/xmpp-server-benchmarks)
 
 This repository should evolve to a fully automated server benchmark suite which
 tests various example scenarios using [tsung](https://github.com/processone/tsung).
